@@ -13,12 +13,17 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Health check
+// Health check (no auth)
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // API routes
+// Note: Auth middleware is available at ./middleware/auth.ts
+// Currently not enforced to allow frontend development without login.
+// Enable it later by uncommenting the line below:
+// import { authMiddleware } from './middleware/auth';
+// app.use('/api', authMiddleware, routes);
 app.use('/api', routes);
 
 // Start server
